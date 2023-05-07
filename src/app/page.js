@@ -1,3 +1,5 @@
+import Blogs from "@/Components/HomePage/Blogs/Blogs";
+import Fetured from "@/Components/HomePage/Fetured/Fetured";
 import Hero from "@/Components/HomePage/Hero/Hero";
 import Products from "@/Components/HomePage/Products/Products";
 import Head from "next/head";
@@ -13,6 +15,8 @@ export default function Home() {
       </Head>
       <Hero />
       <Products />
+      <Blogs />
+      <Fetured/>
     </main>
   );
 }

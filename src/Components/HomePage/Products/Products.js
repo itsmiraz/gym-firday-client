@@ -18,7 +18,7 @@ export const productData = [
         price: 32,
     },
     {
-        id: 1,
+        id: 3,
         productImg: iamge3,
         title: "BalanceFrom Puzzle Exercise Mat with EVA Foam Interlocking Tiles for MMA, Exercise,",
         price: 42,
@@ -29,17 +29,17 @@ export const productData = [
 
 const Products = () => {
     return (
-        <div className="px-10 py-10">
+        <section className="px-10 pt-10">
             <div className="flex items-center justify-between">
                 <h1 className="text-2xl font-semibold">Best Fitness Products</h1>
                 <p className="text-sm cursor-pointer">View All</p>
             </div>
-            <div className='grid gap-10 my-10 grid-cols-1 md:gird-cols-2 lg:grid-cols-3 '>
+            <div className='grid gap-10 mt-10 grid-cols-1 md:gird-cols-2 lg:grid-cols-3 '>
                 {
                     productData.map((data) => <ProductCard product={ data} key={data.id} />)
                 }
             </div>
-        </div>
+        </section>
     );
 };
 
