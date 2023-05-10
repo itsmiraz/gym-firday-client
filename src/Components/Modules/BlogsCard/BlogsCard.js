@@ -1,5 +1,7 @@
 import Image from "next/image";
 import { AiOutlineArrowRight } from "react-icons/ai";
+import { MainButton } from "../Buttons/Buttons";
+import Link from "next/link";
 
 const BlogsCard = ({ blog }) => {
   const { title, img, details } = blog;
@@ -17,12 +19,33 @@ const BlogsCard = ({ blog }) => {
         <h1 className="text-2xl font-semibold">{title}</h1>
         <p className="text-sm text-zinc-600 my-4">{details.slice(0, 100)}..</p>
 
-        <button className="bg-[#F34E3A] text-white px-4 py-2 flex items-center gap-2">
-          Read More <AiOutlineArrowRight />
-        </button>
+        <Link href={"/blogdetails"}>
+          <MainButton title={"Read More"} />
+        </Link>
       </div>
     </div>
   );
 };
 
-export default BlogsCard;
+const HorizontalMiniBlogCard = ({ blog }) => {
+  const { title, img, details } = blog;
+
+  return (
+    <Link href={'/blogdetails'}>
+     <div className="my-6 bg-white flex  gap-2">
+      <Image className="w-52" src={img} alt="" />
+      <div className="p-2">
+        <h1 className="text-xl font-semibold">{title}</h1>
+        <p className="text-sm my-2">{details.slice(0,70)}....</p>
+        <div className="flex font-semibold items-end justify-between mt-2">
+          <p>Junior Mamba</p>
+          <p>12 Feb 2030</p>
+      </div>
+      </div>
+    </div>
+    
+    </Link>
+  );
+};
+
+export { BlogsCard, HorizontalMiniBlogCard };

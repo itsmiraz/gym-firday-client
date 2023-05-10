@@ -97,9 +97,25 @@ const Blogs = () => {
       </div>
 
       <div>
-        
+        <Image src={randomimg} alt="" className="my-10" />
       </div>
-
+      <h1 className="text-2xl font-semibold">
+        What does it mean to be ’underweight‘?
+      </h1>
+      <p className="text-xl font-medium my-10 text-zinc-800">
+        The clinical definition of underweight is having a body mass index (BMI)
+        below 18.5. This is estimated to be less than the body mass needed to
+        sustain optimal health (10Trusted Source). However, keep in mind that
+        there are many problems with the BMI scale, which only looks at weight
+        and height. It does not take muscle mass into account. People can have
+        different BMIs and body types and still be healthy. Being underweight
+        according to this scale does not necessarily mean that you have a health
+        problem. According to the Centers for Disease Control and Prevention
+        (CDC), being underweight is about twice as common among women compared
+        with men. In a U.S. survey that grouped participants into men and women,
+        1.3% of men and 2% of women 20 years and older are underweight (9Trusted
+        Source)
+      </p>
     </section>
   );
 };

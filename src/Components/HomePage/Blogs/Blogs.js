@@ -1,4 +1,4 @@
-import BlogsCard from "@/Components/Modules/BlogsCard/BlogsCard";
+import { BlogsCard } from "@/Components/Modules/BlogsCard/BlogsCard";
 import image1 from "../../../Assets/blogsIamges/gymfriday-blog-image-1.png";
 import image2 from "../../../Assets/blogsIamges/gymfriday-blog-image-2.png";
 import image3 from "../../../Assets/blogsIamges/gymfriday-blog-image-3.png";

@@ -1,0 +1,13 @@
+import { AiOutlineArrowRight } from "react-icons/ai";
+
+const MainButton = ({ title }) => {
+  return (
+    <div>
+      <button className="bg-[#F34E3A] my-2 text-white px-4 py-2 items-center flex gap-x-2 ">
+        {title} <AiOutlineArrowRight />
+      </button>
+    </div>
+  );
+};
+
+export { MainButton };
