@@ -8,7 +8,7 @@ const BlogsCard = ({ blog }) => {
 
   return (
     <div className="bg-white">
-      <div className="w-full overflow-hidden h-72">
+      <div className="w-full overflow-hidden 2xl:h-96 md:h-72">
         <Image
           alt=""
           src={img}
