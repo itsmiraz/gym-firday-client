@@ -3,11 +3,11 @@ import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import { AiOutlineCloudUpload } from "react-icons/ai";
+import { HashLoader } from "react-spinners";
 
 const cloudinary_Name = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME;
 
-
-const UploadImage = ({ state, setState }) => {
+const UploadImage = ({ state, setState, dispatch }) => {
   const [animation, setAnimation] = useState(false);
   const [selectedFile, setSelectedFile] = useState();
   const [preview, setPreview] = useState("");
@@ -36,11 +36,24 @@ const UploadImage = ({ state, setState }) => {
       const fileSizeInBytes = file?.size;
       const fileSizeInMB = fileSizeInBytes ? fileSizeInBytes / 1024 : 0;
       const maxFileSizeInMB = 1024;
-      if (fileSizeInMB > maxFileSizeInMB) {
-        toast.error(`Please upload a photo under ${maxFileSizeInMB}KB`);
-      } else {
-        setSelectedFile(file);
-      }
+      const img = new Image();
+
+      img.onload = function() {
+        const imageWidth = this.width;
+        const imageHeight = this.height;
+        
+        if (
+          fileSizeInMB > maxFileSizeInMB ||
+          imageHeight < 430 ||
+          imageWidth > 1280
+        ) {
+          toast.error(`Please upload an image that meets the requirements.`);
+        } else {
+          setSelectedFile(file);
+        }
+      };
+  
+      img.src = URL.createObjectURL(file);
     }
   };
 
@@ -49,7 +62,6 @@ const UploadImage = ({ state, setState }) => {
     const formData = new FormData();
     formData.append("file", selectedFile);
     formData.append("upload_preset", "nhei6kfw");
-   
 
     fetch(`https://api.cloudinary.com/v1_1/${cloudinary_Name}/image/upload`, {
       method: "POST",
@@ -57,9 +69,20 @@ const UploadImage = ({ state, setState }) => {
     })
       .then(res => res.json())
       .then(data => {
-    setAnimation(false);
-
+        setAnimation(false);
+        // setImageUrl(dat)
         console.log(data);
+        dispatch({
+         type:'INPUT' ,
+          payload:{name: 'image',value:imageUrl}
+        })
+        setState(state+1)
+      })
+      .catch(err => {
+        setAnimation(false);
+        setPreview("")
+        toast.error("Some Thing Went Wrong Please Try Again Later");
+        console.log(err);
       });
   };
 
@@ -67,12 +90,12 @@ const UploadImage = ({ state, setState }) => {
     <div className="relative">
       {animation && (
         <>
-          <div className="bg-black/30 absolute w-full h-full left-0 top-0 ">
-            <p className="text-center my-20 animate-pulse">Loading..</p>
+          <div className="bg-black/30 z-50 absolute w-full h-full left-0 top-0 ">
+          <HashLoader color="#F34E3A" />
           </div>
         </>
       )}
-      <div className="w-full">
+      <div className="w-full my-10">
         <div className="flex w-full relative  my-4 ">
           {preview ? (
             <div className="relative rounded-2xl overflow-hiddens">
@@ -108,13 +131,13 @@ const UploadImage = ({ state, setState }) => {
           )}
         </div>
       </div>
-      <button onClick={handleUpload}>Upload</button>
       
+
       <div className="flex gap-x-5 justify-end  my-14">
         <div onClick={() => setState(state - 1)}>
           <OutlineBtn title={"Prev"} />
         </div>{" "}
-        <div onClick={() => setState(state + 1)}>
+        <div onClick={handleUpload}>
           <MainButton title={"Next"} />
         </div>{" "}
       </div>

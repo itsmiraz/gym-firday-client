@@ -60,12 +60,12 @@ console.log(state);
         )}
         {progress === 2 && (
           <>
-            <TextEditor state={ progress} setState={setprogress}/>
+            <TextEditor state={ progress} dispatch={dispatch}  setState={setprogress}/>
           </>
         )}
         {progress === 3 && (
           <>
-            <UploadImage state={ progress} setState={setprogress} />
+            <UploadImage state={ progress} dispatch={dispatch}  setState={setprogress} />
           </>
         )}
         {progress === 4 && (
