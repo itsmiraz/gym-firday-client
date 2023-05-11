@@ -9,9 +9,7 @@ const Preview = ({ state, setState }) => {
         <div onClick={() => setState(state - 1)}>
           <OutlineBtn title={"Prev"} />
         </div>{" "}
-        <div onClick={() => setState(state + 1)}>
-          <MainButton title={"Next"} />
-        </div>{" "}
+       
       </div>
     </div>
   );

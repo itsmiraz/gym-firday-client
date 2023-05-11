@@ -14,7 +14,7 @@ const UploadBlog = () => {
     <section className="p-10">
       <div className="max-w-[800px] mx-auto">
 
-        <ProgressBar/>
+        <ProgressBar state={state}/>
 
         {state === 1 && (
           <>
