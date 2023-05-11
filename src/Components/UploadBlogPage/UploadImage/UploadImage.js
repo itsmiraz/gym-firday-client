@@ -1,13 +1,18 @@
 import { MainButton, OutlineBtn } from "@/Components/Modules/Buttons/Buttons";
-import compressImage from "@/Components/Modules/ImageCompressor/ImageCompressor";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import { AiOutlineCloudUpload } from "react-icons/ai";
 
+const cloudinary_Name = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME;
+
+
 const UploadImage = ({ state, setState }) => {
+  const [animation, setAnimation] = useState(false);
   const [selectedFile, setSelectedFile] = useState();
   const [preview, setPreview] = useState("");
+  const [imageUrl, setImageUrl] = useState(null);
+
   useEffect(() => {
     if (!selectedFile) {
       setPreview(undefined);
@@ -20,6 +25,7 @@ const UploadImage = ({ state, setState }) => {
       return () => URL.revokeObjectURL(objectUrl);
     }
   }, [selectedFile]);
+
   // For Preview
   const onSelectFile = e => {
     if (!e.target.files || e.target.files.length === 0) {
@@ -38,8 +44,34 @@ const UploadImage = ({ state, setState }) => {
     }
   };
 
+  const handleUpload = async () => {
+    setAnimation(true);
+    const formData = new FormData();
+    formData.append("file", selectedFile);
+    formData.append("upload_preset", "nhei6kfw");
+   
+
+    fetch(`https://api.cloudinary.com/v1_1/${cloudinary_Name}/image/upload`, {
+      method: "POST",
+      body: formData,
+    })
+      .then(res => res.json())
+      .then(data => {
+    setAnimation(false);
+
+        console.log(data);
+      });
+  };
+
   return (
-    <div>
+    <div className="relative">
+      {animation && (
+        <>
+          <div className="bg-black/30 absolute w-full h-full left-0 top-0 ">
+            <p className="text-center my-20 animate-pulse">Loading..</p>
+          </div>
+        </>
+      )}
       <div className="w-full">
         <div className="flex w-full relative  my-4 ">
           {preview ? (
@@ -76,7 +108,8 @@ const UploadImage = ({ state, setState }) => {
           )}
         </div>
       </div>
-      <button onClick={handleCompressAndHost}>Compress</button>
+      <button onClick={handleUpload}>Upload</button>
+      
       <div className="flex gap-x-5 justify-end  my-14">
         <div onClick={() => setState(state - 1)}>
           <OutlineBtn title={"Prev"} />

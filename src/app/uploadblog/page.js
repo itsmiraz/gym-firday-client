@@ -5,35 +5,72 @@ import Preview from "@/Components/UploadBlogPage/Preview/Preview";
 import ProgressBar from "@/Components/UploadBlogPage/ProgressBar/ProgressBar";
 import TextEditor from "@/Components/UploadBlogPage/TextEditor/TextEditor";
 import UploadImage from "@/Components/UploadBlogPage/UploadImage/UploadImage";
-import { useState } from "react";
+import { useState,useReducer } from "react";
 
 const UploadBlog = () => {
-  const [state, setState] = useState(1);
+  const [progress, setprogress] = useState(1);
+
+  const initialState = { 
+
+    title: "",
+    tags: [],
+    catagory: 0,
+    image: '',
+    description: ''
+    
+
+
+   };
+  const reducer = (state, action) => {
+    switch (action.type) {
+      case 'INPUT':
+        return {
+          ...state,
+          [action.payload.name]: action.payload.value,
+        };
+      case 'SELECT':
+        return {
+          ...state,
+          [action.payload.name]: action.payload.value,
+        };
+      case 'ADD_TAGS':
+        return {
+          ...state,
+          [action.payload.name]: action.payload.value,
+        };
+      default:
+        return state;
+    }
+  };
+const [state, dispatch] = useReducer(reducer, initialState);
+
+  
+console.log(state);
 
   return (
     <section className="p-10">
       <div className="max-w-[800px] mx-auto">
 
-        <ProgressBar state={state}/>
+        <ProgressBar state={progress}/>
 
-        {state === 1 && (
+        {progress === 1 && (
           <>
-            <MetaData state={ state} setState={setState} />
+            <MetaData state={ progress} dispatch={dispatch} setState={setprogress} />
           </>
         )}
-        {state === 2 && (
+        {progress === 2 && (
           <>
-            <TextEditor state={ state} setState={setState}/>
+            <TextEditor state={ progress} setState={setprogress}/>
           </>
         )}
-        {state === 3 && (
+        {progress === 3 && (
           <>
-            <UploadImage state={ state} setState={setState} />
+            <UploadImage state={ progress} setState={setprogress} />
           </>
         )}
-        {state === 4 && (
+        {progress === 4 && (
           <>
-            <Preview state={ state} setState={setState}/>
+            <Preview state={ progress} setState={setprogress}/>
           </>
         )}
       </div>
