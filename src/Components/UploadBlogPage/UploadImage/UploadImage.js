@@ -57,28 +57,29 @@ const UploadImage = ({ state, setState, dispatch }) => {
       .then(res => res.json())
       .then(data => {
         setAnimation(false);
-        // setImageUrl(dat)
-        console.log(data);
+        // setImageUrl(data.secure_url);
+    
         dispatch({
-         type:'INPUT' ,
-          payload:{name: 'image',value:imageUrl}
+          type: 'ADD_TAGS',
+          payload:{name: "image", value: data.secure_url}
+          
         })
-        setState(state+1)
+        setState(state + 1);
       })
       .catch(err => {
         setAnimation(false);
-        setPreview("")
+        setPreview("");
         toast.error("Some Thing Went Wrong Please Try Again Later");
         console.log(err);
       });
   };
 
   return (
-    <div className="relative">
+    <div className="">
       {animation && (
         <>
-          <div className="bg-black/30 z-50 absolute w-full h-full left-0 top-0 ">
-          <HashLoader color="#F34E3A" />
+          <div className="bg-black/10 grid place-items-center z-50 absolute w-full h-full left-0 top-0 ">
+            <HashLoader color="#F34E3A" />
           </div>
         </>
       )}
@@ -118,15 +119,16 @@ const UploadImage = ({ state, setState, dispatch }) => {
           )}
         </div>
       </div>
-      
 
       <div className="flex gap-x-5 justify-end  my-14">
         <div onClick={() => setState(state - 1)}>
           <OutlineBtn title={"Prev"} />
         </div>{" "}
-        <div onClick={handleUpload}>
-          <MainButton title={"Next"} />
-        </div>{" "}
+        {selectedFile && (
+          <div onClick={handleUpload}>
+            <MainButton title={"Next"} />
+          </div>
+        )}
       </div>
     </div>
   );

@@ -3,7 +3,7 @@ import logo from "../../../Assets/gymfriday-text-logo.png";
 
 export default function Footer() {
   return (
-    <div className="bg-[#000921] grid grid-cols-5 p-10 mt-10">
+    <div className="bg-[#000921] grid grid-cols-5 p-10 pt-10">
       <div className="col-span-2">
         <Image src={logo} alt="" className="w-32 bg-white" />
           </div>

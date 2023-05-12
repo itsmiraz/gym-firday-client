@@ -22,6 +22,7 @@ const UploadBlog = () => {
 
    };
   const reducer = (state, action) => {
+    console.log(action);
     switch (action.type) {
       case 'INPUT':
         return {
@@ -48,7 +49,7 @@ const [state, dispatch] = useReducer(reducer, initialState);
 console.log(state);
 
   return (
-    <section className="p-10">
+    <section className="p-10 relative">
       <div className="max-w-[800px] mx-auto">
 
         <ProgressBar state={progress}/>

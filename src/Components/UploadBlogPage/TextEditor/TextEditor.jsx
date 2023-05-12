@@ -16,16 +16,14 @@ const TextEditor = ({ state, setState, dispatch }) => {
     setContent(value);
   };
 
-  const handleExport = () => {
-    if (content) {
-      const data = { content };
-      setJsonData(data);
-    }
-  };
+  
 
 
   const handleNext = () => {
-    handleExport()
+      if (content) {
+        const data = { content };
+        setJsonData(data);
+      }
     dispatch({
       type: 'INPUT',
       payload: { name: 'description', value: jsonData.content }
