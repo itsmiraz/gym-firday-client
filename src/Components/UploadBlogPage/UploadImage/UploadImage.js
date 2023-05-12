@@ -36,24 +36,11 @@ const UploadImage = ({ state, setState, dispatch }) => {
       const fileSizeInBytes = file?.size;
       const fileSizeInMB = fileSizeInBytes ? fileSizeInBytes / 1024 : 0;
       const maxFileSizeInMB = 1024;
-      const img = new Image();
-
-      img.onload = function() {
-        const imageWidth = this.width;
-        const imageHeight = this.height;
-        
-        if (
-          fileSizeInMB > maxFileSizeInMB ||
-          imageHeight < 430 ||
-          imageWidth > 1280
-        ) {
-          toast.error(`Please upload an image that meets the requirements.`);
-        } else {
-          setSelectedFile(file);
-        }
-      };
-  
-      img.src = URL.createObjectURL(file);
+      if (fileSizeInMB > maxFileSizeInMB) {
+        toast.error(`Please upload a photo under ${maxFileSizeInMB}KB`);
+      } else {
+        setSelectedFile(file);
+      }
     }
   };
 
