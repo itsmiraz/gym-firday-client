@@ -1,7 +1,10 @@
 "use client"; // this is a client component 👈🏽
 import { MainButton, OutlineBtn } from '@/Components/Modules/Buttons/Buttons';
 import { useState } from 'react';
-import ReactQuill from 'react-quill'
+// import ReactQuill from 'react-quill'
+import dynamic from 'next/dynamic';
+
+const ReactQuill = dynamic(() => import('react-quill'), { ssr: false })
 import 'react-quill/dist/quill.snow.css'
 
 
@@ -16,17 +19,12 @@ const TextEditor = ({ state, setState, dispatch }) => {
     setContent(value);
   };
 
-  
-
 
   const handleNext = () => {
-      if (content) {
-        const data = { content };
-        setJsonData(data);
-      }
+   
     dispatch({
       type: 'INPUT',
-      payload: { name: 'description', value: jsonData.content }
+      payload: { name: 'description', value: content }
     })
     setState(state + 1)
   }

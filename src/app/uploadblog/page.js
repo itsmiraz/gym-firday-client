@@ -37,7 +37,7 @@ const UploadBlog = () => {
       case 'ADD_TAGS':
         return {
           ...state,
-          [action.payload.name]: action.payload.value,
+          tags: [...state.tags, action.payload.value],
         };
       default:
         return state;
