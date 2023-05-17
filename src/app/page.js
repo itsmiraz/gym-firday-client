@@ -1,8 +1,8 @@
-import Blogs from "@/Components/HomePage/Blogs/Blogs";
-import Fetured from "@/Components/HomePage/Fetured/Fetured";
-import Hero from "@/Components/HomePage/Hero/Hero";
-import Products from "@/Components/HomePage/Products/Products";
 import Head from "next/head";
+import image from '../Assets/gym-firiday-textandicon logo.png'
+import Image from "next/image";
+import Marquee from "react-fast-marquee";
+
 
 export default function Home() {
   return (
