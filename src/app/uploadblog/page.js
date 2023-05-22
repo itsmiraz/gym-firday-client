@@ -17,9 +17,7 @@ const UploadBlog = () => {
     catagory: 0,
     image: '',
     description: ''
-    
-
-
+  
    };
   const reducer = (state, action) => {
     console.log(action);
