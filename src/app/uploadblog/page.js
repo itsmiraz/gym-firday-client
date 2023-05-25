@@ -32,6 +32,11 @@ const UploadBlog = () => {
           ...state,
           [action.payload.name]: action.payload.value,
         };
+      case 'ADD_IMAGE':
+        return {
+          ...state,
+          [action.payload.name]: action.payload.value,
+        };
       case 'ADD_TAGS':
         return {
           ...state,
@@ -54,22 +59,22 @@ console.log(state);
 
         {progress === 1 && (
           <>
-            <MetaData state={ progress} dispatch={dispatch} setState={setprogress} />
+            <MetaData state={initialState} progresState={ progress} dispatch={dispatch} setState={setprogress} />
           </>
         )}
         {progress === 2 && (
           <>
-            <TextEditor state={ progress} dispatch={dispatch}  setState={setprogress}/>
+            <TextEditor progresState={ progress} dispatch={dispatch}  setState={setprogress}/>
           </>
         )}
         {progress === 3 && (
           <>
-            <UploadImage state={ progress} dispatch={dispatch}  setState={setprogress} />
+            <UploadImage progresState={ progress} dispatch={dispatch}  setState={setprogress} />
           </>
         )}
         {progress === 4 && (
           <>
-            <Preview state={ progress} setState={setprogress}/>
+            <Preview progresState={ progress} setState={setprogress}/>
           </>
         )}
       </div>
