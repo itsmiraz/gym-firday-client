@@ -50,7 +50,7 @@ const UploadImage = ({ state, setState, dispatch }) => {
     formData.append("file", selectedFile);
     formData.append("upload_preset", "nhei6kfw");
 
-    fetch(`https://api.cloudinary.com/v1_1/${cloudinary_Name}/image/upload`, {
+    fetch(`https://api.cloudinary.com/v1_1/dbjro9pqn/image/upload`, {
       method: "POST",
       body: formData,
     })
@@ -58,13 +58,14 @@ const UploadImage = ({ state, setState, dispatch }) => {
       .then(data => {
         setAnimation(false);
         // setImageUrl(data.secure_url);
-    
-        dispatch({
-          type: 'ADD_TAGS',
-          payload:{name: "image", value: data.secure_url}
-          
-        })
-        setState(state + 1);
+
+        if (data.secure_url) {
+          dispatch({
+            type: "ADD_IMAGE",
+            payload: { name: "image", value: data.secure_url },
+          });
+          setState(state + 1);
+        }
       })
       .catch(err => {
         setAnimation(false);

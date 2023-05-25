@@ -1,7 +1,8 @@
 import { MainButton, OutlineBtn } from "@/Components/Modules/Buttons/Buttons";
 import React, { useState } from "react";
+import { toast } from "react-hot-toast";
 
-const MetaData = ({ state, setState, dispatch }) => {
+const MetaData = ({ progresState,state, setState, dispatch }) => {
   // Tags State
   const [tags, setTags] = useState([]);
   const [tagInput, setTagInput] = useState("");
@@ -26,17 +27,30 @@ const MetaData = ({ state, setState, dispatch }) => {
     setTags(updatedTags);
   };
 
-
-
   const handleClick = () => {
-    dispatch({
-      type: 'ADD_TAGS',
-      payload:{name:'tags',value:tags}
-      
-    })
-    setState(state+1)
+    console.log(state);
+    if (state.title == '') {
+      toast.error('Title is Required') 
+      return
+    }
+    else if (state.catagory === 0) {
+      toast.error('Plese Select A Catagory') 
+      return
+    }
+    else if (tags.length === 0) {
+      toast.error('Plese add some tags') 
+      return
+    }
+    else {
+       dispatch({
+      type: "ADD_TAGS",
+      payload: { name: "tags", value: tags },
+    });
+    setState(progresState + 1);
+    }
 
-  }
+   
+  };
 
   return (
     <div className="border bg-zinc-200 p-4 my-4">
@@ -124,10 +138,11 @@ const MetaData = ({ state, setState, dispatch }) => {
       </div>
 
       <div className="flex justify-end my-4">
-        {/* <OutlineBtn title={"Prev"} /> */}
-        <div onClick={handleClick}>
-          <MainButton title={"Next"} />
-        </div>{" "}
+       
+            <div onClick={handleClick}>
+              <MainButton title={"Next"} />
+            </div>
+          
       </div>
     </div>
   );
