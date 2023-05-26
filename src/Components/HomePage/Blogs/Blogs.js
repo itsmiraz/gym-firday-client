@@ -29,7 +29,7 @@ export const blogsData = [
 
 const Blogs = () => {
   return (
-    <section className="px-10 py-10">
+    <section className="px-4 md:px-10 py-10">
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-semibold">Gym Friday Blog’s</h1>
         <p className="text-sm cursor-pointer">View All</p>

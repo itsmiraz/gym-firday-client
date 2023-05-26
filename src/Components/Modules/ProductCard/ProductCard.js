@@ -6,7 +6,7 @@ const ProductCard = ({ product }) => {
 
   return (
     <div className="bg-white">
-      <div className="w-full p-5 h-80 overflow-hidden">
+      <div className="w-full p-5 h-42 md:h-80 overflow-hidden">
         <Image
           src={productImg}
           alt=""

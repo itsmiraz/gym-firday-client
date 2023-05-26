@@ -29,7 +29,7 @@ export const productData = [
 
 const Products = () => {
     return (
-        <section className="px-10 pt-10">
+        <section className="px-2 md:px-10 pt-10">
             <div className="flex items-center justify-between">
                 <h1 className="text-2xl font-semibold">Best Fitness Products</h1>
                 <p className="text-sm cursor-pointer">View All</p>
