@@ -25,8 +25,8 @@ const Header = () => {
       <p>About</p>
     </div>
 
-    <div onClick={()=>setShow(!show)}>
-        {
+    <div className='md:hidden block' onClick={()=>setShow(!show)}>
+         {
           show ? <AiOutlineClose/>: <AiOutlineMenu/>
      }
     </div>

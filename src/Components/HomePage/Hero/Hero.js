@@ -10,7 +10,7 @@ const Hero = () => {
           Make Every <br />
           Friday a GymFriday!
         </h1>
-        <p className="text-[#CBCBCB] my-4 text-xs md:text-lg mb-4 md:mb-10">
+        <p className="text-[#CBCBCB] my-2 md:my-4 text-xs md:text-lg mb-4 md:mb-10">
           At GymFriday, we help you achieve your fitness goals with personalized{" "}
           <br className="md:block hidden" />
           plans and expert guidance.
