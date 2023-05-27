@@ -12,7 +12,6 @@ const Login = () => {
   // Global States
   const { signIn, auth, googleSginIn } = useContext(AuthContext);
 
- 
   // States
   const [error, setError] = useState(null);
   const [usermail, setUsermail] = useState("");
@@ -120,12 +119,10 @@ const Login = () => {
             Welcome to Gym Friday!
           </h1>
           <p className="text-lg text-zinc-400">
-            {" "}
             Please log in to access your account and start exploring our
             exciting bartering platform. By logging in, you gain access to a
-            vast network of individuals eager to trade goods and services.{" "}
+            vast network of individuals eager to trade goods and services.
             <span className="md:inline-block hidden">
-              {" "}
               Join our community today and unlock the power of bartering with
               Gym Friday!
             </span>
