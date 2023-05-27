@@ -8,23 +8,31 @@ import Image from "next/image";
 import { MainButton } from "@/Components/Modules/Buttons/Buttons";
 import { AuthContext } from "@/Context/UserContext";
 import { toast } from "react-hot-toast";
+import { getTokenCookie, removeTokenCookie } from "@/Helpers/cookie";
 
 const Header = () => {
+  // States
   const [show, setShow] = useState(false);
+  const [showDropDown, setShowDropdown] = useState(false);
 
+  // Global Sates
   const { user, logOut } = useContext(AuthContext);
+
+
+  const token = getTokenCookie()
+
 
   const handleLogout = () => {
     logOut()
       .then(result => {
         toast.success("User Log Outed");
+        removeTokenCookie()
       })
       .then(err => {
         console.log(err);
       });
   };
 
-  const [showDropDown, setShowDropdown] = useState(false);
   return (
     <div className="bg-white   flex items-center justify-between px-2 md:px-8 sticky top-0 z-50">
       <Image
