@@ -15,8 +15,8 @@ export default function Home() {
       </Head>
       <Hero />
       <Products />
-      <Blogs />
-      <Fetured/>
+     <Blogs />
+     {/*   <Fetured/> */}
     </main>
   );
 }
