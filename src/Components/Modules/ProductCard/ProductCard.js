@@ -17,7 +17,7 @@ const ProductCard = ({ product }) => {
         <h1 className="text-sm md:text-2xl font-semibold text-[#111111]">
           {title.slice(0, 40)}..
         </h1>
-        <div className="flex items-center my-2 justify-between w-full">
+        <div className="flex flex-wrap items-center my-2 justify-between w-full">
           <div className="flex md:text-lg text-xs items-center gap-x-1 text-[#F59300]">
             <AiFillStar />
             <AiFillStar />
