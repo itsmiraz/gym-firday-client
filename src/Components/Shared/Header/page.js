@@ -71,7 +71,7 @@ const Header = () => {
                 showDropDown ? "block" : "hidden"
               } p-4 top-12 -right-4 bg-white`}
             >
-              <p>DashBoard</p>
+              <Link href={'/dashboard'}>DashBoard</Link>
               <p>Setting</p>
               <button onClick={() =>handleLogout()}>Log Out</button>
             </div>
