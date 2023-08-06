@@ -40,7 +40,7 @@ const Header = () => {
         className="w-32 z-50 relative md:w-60"
       />
       <div
-        className={`md:static duration-500 ease-in-out absolute right-0 p-2 bg-white w-full justify-center items-center space-y-4 md:space-y-0 py-4 md:py-0 ${
+        className={`md:static duration-500 ease-in-out absolute right-0 p-2 bg-white w-full md:justify-end justify-center md:items-end items-center space-y-4 md:space-y-0 py-4 md:py-0 ${
           show ? "top-8 " : "top-[-800px]"
         } flex md:flex-row flex-col md:items-center gap-x-8 font-semibold`}
       >
