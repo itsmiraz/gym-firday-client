@@ -44,10 +44,10 @@ const Header = () => {
           show ? "top-8 " : "top-[-800px]"
         } flex md:flex-row flex-col md:items-center gap-x-8 font-semibold`}
       >
-        <Link href={"/"}>
+        <Link   onClick={() => setShow(!show)} href={"/"}>
           <p>Home</p>
         </Link>
-        <Link href={"/blogs"}>
+        <Link  onClick={() => setShow(!show)}  href={"/blogs"}>
           <p>Blogs</p>
         </Link>
         <p>Products</p>
