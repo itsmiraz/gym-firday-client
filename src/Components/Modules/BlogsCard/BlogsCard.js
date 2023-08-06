@@ -33,11 +33,11 @@ const HorizontalMiniBlogCard = ({ blog }) => {
   return (
     <Link href={'/blogdetails'}>
      <div className="my-6 bg-white flex  gap-2">
-      <Image className="w-52" src={img} alt="" />
+      <Image className="w-32 md:w-52" src={img} alt="" />
       <div className="p-2">
-        <h1 className="text-xl font-semibold">{title}</h1>
-        <p className="text-sm my-2">{details.slice(0,70)}....</p>
-        <div className="flex font-semibold items-end justify-between mt-2">
+        <h1 className="text-sm leading-[17px] md:leading-normal md:text-xl font-semibold">{title}</h1>
+        <p className="text-[10px] leading-[14px] md:leading-normal text-zinc-600 md:text-sm my-2">{details.slice(0,70)}....</p>
+        <div className="md:text-lg text-xs flex font-semibold items-end justify-between mt-2">
           <p>Junior Mamba</p>
           <p>12 Feb 2030</p>
       </div>

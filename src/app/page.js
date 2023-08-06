@@ -14,9 +14,31 @@ export default function Home() {
         <link rel="icon" href="../assets/favicon/favicon.ico" />
       </Head>
       <Hero />
-      <Products />
      <Blogs />
+      <Products />
      {/*   <Fetured/> */}
     </main>
   );
 }
+{/* <ProgressBar state={progress}/> */}
+
+        {/* {progress === 1 && (
+          <>
+            <MetaData state={state} progresState={ progress} dispatch={dispatch} setState={setprogress} />
+          </>
+        )} */}
+        {/* {progress === 2 && (
+          <>
+            <TextEditor progresState={ progress} dispatch={dispatch}  setState={setprogress}/>
+          </>
+        )}
+        {progress === 3 && (
+          <>
+            <UploadImage progresState={ progress} dispatch={dispatch}  setState={setprogress} />
+          </>
+        )}
+        {progress === 4 && (
+          <>
+            <Preview progresState={ progress} setState={setprogress}/>
+          </>
+        )} */}

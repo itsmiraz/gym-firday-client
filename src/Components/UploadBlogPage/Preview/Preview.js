@@ -1,7 +1,7 @@
 import { MainButton, OutlineBtn } from "@/Components/Modules/Buttons/Buttons";
 import React from "react";
 
-const Preview = ({ state, setState }) => {
+const Preview = ({ state, setState ,progresState}) => {
   return (
     <div>
       <div className="p-10 border-2 m-4">
@@ -17,7 +17,7 @@ const Preview = ({ state, setState }) => {
       </div>
 
       <div className="flex gap-x-5 justify-end  my-14">
-        <div onClick={() => setState(state - 1)}>
+        <div onClick={() => setState(progresState - 1)}>
           <OutlineBtn title={"Prev"} />
         </div>{" "}
       </div>

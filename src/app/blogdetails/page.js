@@ -5,27 +5,27 @@ import randomimg from "../../Assets/random/gym-friday-random.png";
 
 const Blogs = () => {
   return (
-    <section className="px-10">
-      <div className="h-[500px] py-10 relative overflow-hidden">
-        <Image src={cover} alt="" />
-        <div className="absolute bottom-0 p-10">
-          <h1 className="text-7xl font-semibold text-white">
+    <section className="px-4 md:px-10">
+      <div className="md:h-[500px] py-4 md:py-10 relative overflow-hidden">
+        <Image src={cover} className="w-full" alt="" />
+        <div className="absolute bottom-10 md:bottom-0 p-4  md:p-10">
+          <h1 className="text-2xl md:text-7xl font-medium md:font-semibold text-white">
             Best Ways of Gaining <br /> Weight in 2023
           </h1>
         </div>
       </div>
 
-      <div className=" my-10">
+      <div className=" my-4 md:my-10">
         <div className="w-full h-[2px] bg-gray-300 my-2"></div>
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-x-4">
-            <Image className="w-20 " src={avater} alt="" />
+            <Image className=" w-10 md:w-20 " src={avater} alt="" />
             <div>
-              <h1 className="text-xl font-semibold">Tasfiya Akter Fimu</h1>
-              <p>Auhter</p>
+              <h1 className="text-xs md:text-xl font-semibold">Tasfiya Akter Fimu</h1>
+              <p className="text-xs md:text-sm">Auhter</p>
             </div>
           </div>
-          <h1 className="text-xl font-semibold">
+          <h1 className="text-xs md:text-xl font-semibold">
             Published Date: 13 - Feb - 2002
           </h1>
         </div>
@@ -33,7 +33,7 @@ const Blogs = () => {
       </div>
 
       <div>
-        <p className="text-xl font-medium text-zinc-800">
+        <p className="text-sm md:text-xl font-medium text-zinc-800">
           A healthy approach to gaining weight involves gaining a balanced
           amount of muscle mass and subcutaneous fat rather than a lot of
           unhealthy belly fat (4). A recent animal study suggests that belly fat
@@ -46,11 +46,11 @@ const Blogs = () => {
           strategies to quickly gain weight — without increasing your risk of
           disease.
         </p>
-        <p className="text-2xl my-10 font-medium text-zinc-800">
+        <p className="text-lg md:text-2xl my-10 font-medium text-zinc-800">
           If youre looking to gain weight in a healthy way, here are some
           effective strategies you can follow in 2023:
         </p>
-        <ol className="list-decimal space-y-4 px-10 text-xl font-medium text-zinc-800">
+        <ol className="list-decimal space-y-4 px-10 text-sm md:text-xl font-medium text-zinc-800">
           <li className="my-2">
             Eat more calories than you burn: In order to gain weight, you need
             to consume more calories than you burn. Start by calculating your
@@ -89,7 +89,7 @@ const Blogs = () => {
             supplement regimen.
           </li>
         </ol>
-        <p className="text-2xl my-10 font-medium text-zinc-800">
+        <p className="text-lg md:text-2xl my-10 font-medium text-zinc-800">
           Remember that gaining weight in a healthy way takes time and
           consistency. Be patient and consistent with your efforts, and consult
           with a healthcare professional if you have any concerns or questions.
@@ -99,10 +99,10 @@ const Blogs = () => {
       <div>
         <Image src={randomimg} alt="" className="my-10" />
       </div>
-      <h1 className="text-2xl font-semibold">
+      <h1 className="text-lg md:text-2xl font-semibold">
         What does it mean to be ’underweight‘?
       </h1>
-      <p className="text-xl font-medium my-10 text-zinc-800">
+      <p className="text-sm md:text-xl font-medium my-10 text-zinc-800">
         The clinical definition of underweight is having a body mass index (BMI)
         below 18.5. This is estimated to be less than the body mass needed to
         sustain optimal health (10Trusted Source). However, keep in mind that

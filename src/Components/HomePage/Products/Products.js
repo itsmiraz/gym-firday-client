@@ -35,12 +35,17 @@ export const productData = [
 
 const Products = () => {
     return (
-        <section className="px-2 md:px-10 pt-10">
+        <section className="px-4 mb-10 md:px-10 pt-10">
             <div className="flex items-center justify-between">
                 <h1 className="text-2xl font-semibold">Best Fitness Products</h1>
                 <p className="text-sm cursor-pointer">View All</p>
             </div>
-            <div className='grid gap-3 md:gap-10 mt-10 grid-cols-2 md:gird-cols-3 lg:grid-cols-3 '>
+            <div className='justify-start  hidden 2xl:justify-center transition-all duration-300 ease-in-out md:flex flex-wrap gap-3 md:gap-6 mt-10 grid-cols-2 md:gird-cols-3 lg:grid-cols-3 '>
+                {
+                    productData.map((data) => <ProductCard product={ data} key={data.id} />)
+                }
+            </div>
+            <div className='grid md:hidden  2xl:justify-center transition-all duration-300 ease-in-out  gap-3 md:gap-6 mt-10 grid-cols-2 md:gird-cols-3 lg:grid-cols-3 '>
                 {
                     productData.map((data) => <ProductCard product={ data} key={data.id} />)
                 }

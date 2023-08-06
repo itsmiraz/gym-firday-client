@@ -18,7 +18,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={inter.className}>
         <UserContext>
-        <div className="max-w-[1920px] mx-auto">
+        <div className="max-w-[1920px] mx-auto transition-all duration-300 ease-in-out">
           <Header />
           {children}
           <Footer />
