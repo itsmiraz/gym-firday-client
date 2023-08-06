@@ -18,19 +18,19 @@ import {
 
 const Blogs = () => {
   return (
-    <section className="px-10 py-8">
+    <section className="px-4 md:px-10  py-8">
       <div className="grid gap-8 grid-cols-7">
-        <div className="col-span-4">
+        <div className="col-span-7 md:col-span-4">
           {/* Main Card */}
           <div className="bg-white">
             <div>
               <Image src={main} alt="" />
             </div>
             <div className="p-4">
-              <h1 className="text-4xl my-4 font-semibold">
+              <h1 className="text-xl md:text-4xl my-2  md:my-4 font-semibold">
                 The Ultimate Guide to Fitness: Tips, Workouts, and Nutrition
               </h1>
-              <p className="mb-4">
+              <p className="md:text-lg text-zinc-500 text-xs mb-2 md:mb-4">
                 The guide includes a variety of workouts, such as strength
                 training, cardio, and yoga, to suit different fitness levels and
                 preferences. It also provides helpful tips on proper nutrition,
@@ -43,7 +43,7 @@ const Blogs = () => {
             </div>
           </div>
         </div>
-        <div className="col-span-3">
+        <div className="col-span-7 md:col-span-3">
           <h1 className="mb-4 text-2xl font-semibold">Fetured Articles</h1>
           <div className="w-full h-[2px] bg-gray-600"></div>
           {blogsData.map(data => (

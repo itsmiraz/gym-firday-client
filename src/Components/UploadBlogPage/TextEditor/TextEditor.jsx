@@ -9,7 +9,7 @@ import 'react-quill/dist/quill.snow.css'
 
 
 
-const TextEditor = ({ state, setState, dispatch }) => {
+const TextEditor = ({ state, setState, dispatch ,progresState}) => {
   // States
   const [content, setContent] = useState('');
   const [jsonData, setJsonData] = useState(null);
@@ -26,7 +26,7 @@ const TextEditor = ({ state, setState, dispatch }) => {
       type: 'INPUT',
       payload: { name: 'description', value: content }
     })
-    setState(state + 1)
+    setState(progresState + 1)
   }
 
   // Modules for Text Editor
@@ -61,7 +61,7 @@ const TextEditor = ({ state, setState, dispatch }) => {
 
       </div>
       <div className='flex gap-x-5 justify-end  my-14'>
-        <div onClick={() => setState(state - 1)}>
+        <div onClick={() => setState(progresState - 1)}>
           <OutlineBtn title={"Prev"} />
         </div>{" "}
         <div onClick={handleNext}>

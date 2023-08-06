@@ -2,10 +2,11 @@ import { MainButton, OutlineBtn } from "@/Components/Modules/Buttons/Buttons";
 import React, { useState } from "react";
 import { toast } from "react-hot-toast";
 
-const MetaData = ({ progresState,state, setState, dispatch }) => {
+const MetaData = ({ progresState, state, setState, dispatch }) => {
   // Tags State
-  const [tags, setTags] = useState([]);
+  const [tags, setTags] = useState(state.tags);
   const [tagInput, setTagInput] = useState("");
+  console.log(tags);
 
   // Add Tags Functions
   const handleInputChange = () => {
@@ -19,6 +20,10 @@ const MetaData = ({ progresState,state, setState, dispatch }) => {
         id: tags.length + 1,
       };
       setTags([...tags, newTag]);
+      dispatch({
+        type: "ADD_TAGS",
+        payload: { value: newTag }, // Pass the individual tag object here, not the entire tags array
+      });
       setTagInput("");
     }
   };
@@ -28,28 +33,18 @@ const MetaData = ({ progresState,state, setState, dispatch }) => {
   };
 
   const handleClick = () => {
-    console.log(state);
-    if (state.title == '') {
-      toast.error('Title is Required') 
-      return
+    if (state.title == "") {
+      toast.error("Title is Required");
+      return;
+    } else if (state.catagory === 0) {
+      toast.error("Plese Select A Catagory");
+      return;
+    } else if (tags.length === 0) {
+      toast.error("Plese add some tags");
+      return;
+    } else {
+      setState(progresState + 1);
     }
-    else if (state.catagory === 0) {
-      toast.error('Plese Select A Catagory') 
-      return
-    }
-    else if (tags.length === 0) {
-      toast.error('Plese add some tags') 
-      return
-    }
-    else {
-       dispatch({
-      type: "ADD_TAGS",
-      payload: { name: "tags", value: tags },
-    });
-    setState(progresState + 1);
-    }
-
-   
   };
 
   return (
@@ -65,13 +60,13 @@ const MetaData = ({ progresState,state, setState, dispatch }) => {
             type="text"
             className="w-full py-2 px-4 my-4 focus:outline-[#F34E3A]"
             name="title"
-            onBlur={e =>
+            value={state.title}
+            onChange={e =>
               dispatch({
                 type: "INPUT",
                 payload: { name: e.target.name, value: e.target.value },
               })
             }
-            id=""
           />
         </div>
 
@@ -86,10 +81,13 @@ const MetaData = ({ progresState,state, setState, dispatch }) => {
                 payload: { name: e.target.name, value: e.target.value },
               })
             }
+            defaultValue={state.catagory}
             name="catagory"
             className="w-full py-2  my-4 px-2 bg-white focus:outline-[#F34E3A]"
           >
-            <option disabled>Chosse One</option>
+            <option defaultValue disabled>
+              Chosse One
+            </option>
             <option value={1}>Fitness</option>
             <option value={2}>Weight Gain</option>
             <option value={3}>Weight Loss</option>
@@ -106,12 +104,12 @@ const MetaData = ({ progresState,state, setState, dispatch }) => {
 
             <div className="flex flex-wrap items-center  border rounded py-2">
               <div className="flex flex-wrap items-center ">
-                {tags.map(tag => (
+                {tags?.map((tag, i) => (
                   <div
-                    key={tag.id}
+                    key={i}
                     className="bg-zinc-200 select-none flex justify-between items-center rounded px-2 m-2 py-1 text-gray-900"
                   >
-                    <p> {tag.text}</p>
+                    <p> {tag?.text}</p>
                     <span
                       className="cursor-pointer pl-2"
                       onClick={() => handleTagRemoval(tag.id)}
@@ -138,11 +136,9 @@ const MetaData = ({ progresState,state, setState, dispatch }) => {
       </div>
 
       <div className="flex justify-end my-4">
-       
-            <div onClick={handleClick}>
-              <MainButton title={"Next"} />
-            </div>
-          
+        <div onClick={handleClick}>
+          <MainButton title={"Next"} />
+        </div>
       </div>
     </div>
   );

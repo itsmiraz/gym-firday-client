@@ -18,15 +18,13 @@ const Header = () => {
   // Global Sates
   const { user, logOut } = useContext(AuthContext);
 
-
-  const token = getTokenCookie()
-
+  const token = getTokenCookie();
 
   const handleLogout = () => {
     logOut()
       .then(result => {
         toast.success("User Log Outed");
-        removeTokenCookie()
+        removeTokenCookie();
       })
       .then(err => {
         console.log(err);
@@ -34,7 +32,7 @@ const Header = () => {
   };
 
   return (
-    <div className="bg-white   flex items-center justify-between px-2 md:px-8 sticky top-0 z-50">
+    <div className="bg-white   flex items-center justify-between px-2 md:px-8 sticky  py-2 top-0 z-50">
       <Image
         priority
         src={logo}
@@ -42,7 +40,7 @@ const Header = () => {
         className="w-32 z-50 relative md:w-60"
       />
       <div
-        className={`md:static duration-300 ease-in-out absolute right-0 p-2 bg-white w-full justify-end items-end ${
+        className={`md:static duration-500 ease-in-out absolute right-0 p-2 bg-white w-full justify-center items-center space-y-4 md:space-y-0 py-4 md:py-0 ${
           show ? "top-8 " : "top-[-800px]"
         } flex md:flex-row flex-col md:items-center gap-x-8 font-semibold`}
       >
@@ -71,9 +69,13 @@ const Header = () => {
                 showDropDown ? "block" : "hidden"
               } p-4 top-12 -right-4 bg-white`}
             >
-              <Link href={'/dashboard'}>DashBoard</Link>
+              <Link href={"/dashboard"}>DashBoard</Link>
+              <Link href={"/uploadblog"}>
+                {" "}
+                <p>Upload</p>{" "}
+              </Link>
               <p>Setting</p>
-              <button onClick={() =>handleLogout()}>Log Out</button>
+              <button onClick={() => handleLogout()}>Log Out</button>
             </div>
           </div>
         ) : (

@@ -7,3 +7,12 @@ body {
   font-family: "IBM Plex Sans", sans-serif;
   background-color: #ECECEC;
 }
+.body{
+  scroll-behavior:'smooth'!important;
+  transition: opacity 0.3s ease-in-out, transform 0.5s ease;
+}
+html {
+  scroll-behavior: smooth;
+  transition: opacity 0.4s ease-in-out, transform 0.5s ease;
+
+}

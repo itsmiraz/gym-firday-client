@@ -1,4 +1,5 @@
 import { MainButton, OutlineBtn } from "@/Components/Modules/Buttons/Buttons";
+import axios from "axios";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
@@ -7,76 +8,93 @@ import { HashLoader } from "react-spinners";
 
 const cloudinary_Name = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME;
 
-const UploadImage = ({ state, setState, dispatch }) => {
-  const [animation, setAnimation] = useState(false);
-  const [selectedFile, setSelectedFile] = useState();
-  const [preview, setPreview] = useState("");
-  const [imageUrl, setImageUrl] = useState(null);
-
+const UploadImage = ({ state, setState, dispatch, progresState }) => {
+  const [selectedFiles, setSelectedFiles] = useState([]);
+  const [previews, setPreviews] = useState([]);
+  const [animation, setanimation] = useState(false);
+console.log(state.images);
   useEffect(() => {
-    if (!selectedFile) {
-      setPreview(undefined);
+    if (selectedFiles.length === 0) {
+      setPreviews([]);
       return;
     } else {
-      const objectUrl = URL.createObjectURL(selectedFile);
-      setPreview(objectUrl);
+      const objectUrls = selectedFiles.map(file => URL.createObjectURL(file));
+      setPreviews(objectUrls);
 
-      // free memory when ever this component is unmounted
-      return () => URL.revokeObjectURL(objectUrl);
+      // free memory when the component is unmounted
+      return () => {
+        objectUrls.forEach(url => URL.revokeObjectURL(url));
+      };
     }
-  }, [selectedFile]);
+  }, [selectedFiles]);
 
-  // For Preview
+  // Handle Selected File
   const onSelectFile = e => {
     if (!e.target.files || e.target.files.length === 0) {
-      setSelectedFile(undefined);
+      setSelectedFiles([]);
       return;
     } else {
-      const file = e.target.files[0];
-      const fileSizeInBytes = file?.size;
-      const fileSizeInMB = fileSizeInBytes ? fileSizeInBytes / 1024 : 0;
-      const maxFileSizeInMB = 1024;
-      if (fileSizeInMB > maxFileSizeInMB) {
-        toast.error(`Please upload a photo under ${maxFileSizeInMB}KB`);
+      const selectedFilesArray = Array.from(e.target.files);
+      const fileSizes = selectedFilesArray.map(file => file.size / 1024);
+      const isOverSizeLimit = fileSizes.some(size => size > 500);
+
+      if (isOverSizeLimit) {
+        toast.error("Please upload photos under 500kb");
       } else {
-        setSelectedFile(file);
+        setSelectedFiles(prevSelectedFiles => [
+          ...prevSelectedFiles,
+          ...selectedFilesArray,
+        ]);
       }
     }
   };
 
-  const handleUpload = async () => {
-    setAnimation(true);
+  // Function to upload an image to Cloudinary
+  const uploadImage = file => {
     const formData = new FormData();
-    formData.append("file", selectedFile);
-    formData.append("upload_preset", "nhei6kfw");
+    formData.append("file", file);
+    formData.append("upload_preset", "nhei6kfw"); // Replace with your upload preset
 
-    fetch(`https://api.cloudinary.com/v1_1/dbjro9pqn/image/upload`, {
-      method: "POST",
-      body: formData,
-    })
-      .then(res => res.json())
-      .then(data => {
-        setAnimation(false);
-        // setImageUrl(data.secure_url);
+    return axios.post(
+      `https://api.cloudinary.com/v1_1/dbjro9pqn/image/upload`,
+      formData
+    );
+  };
 
-        if (data.secure_url) {
-          dispatch({
-            type: "ADD_IMAGE",
-            payload: { name: "image", value: data.secure_url },
-          });
-          setState(state + 1);
-        }
-      })
-      .catch(err => {
-        setAnimation(false);
-        setPreview("");
-        toast.error("Some Thing Went Wrong Please Try Again Later");
-        console.log(err);
+  // Function to upload an array of images to Cloudinary
+  const uploadImagesToCloudinary = async imageFiles => {
+    try {
+      const uploadPromises = imageFiles.map(file => uploadImage(file));
+      const uploadedResponses = await Promise.all(uploadPromises);
+      const uploadedUrls = uploadedResponses.map(
+        response => response.data.secure_url
+      );
+      return uploadedUrls;
+    } catch (error) {
+      console.error("Error uploading images:", error);
+      throw error;
+    }
+  };
+
+  const handleUpload = async () => {
+    try {
+      setanimation(true);
+      const uploadedUrls = await uploadImagesToCloudinary(selectedFiles);
+      
+    
+      dispatch({
+        type: "ADD_IMAGE",
+        payload: {value: uploadedUrls },
       });
+      setState(progresState + 1);
+    } catch (err) {
+      toast.error("Something went wrong whenUploading Image");
+      setanimation(false)
+    }
   };
 
   return (
-    <div className="">
+    <div className="relative">
       {animation && (
         <>
           <div className="bg-black/10 grid place-items-center z-50 absolute w-full h-full left-0 top-0 ">
@@ -85,51 +103,71 @@ const UploadImage = ({ state, setState, dispatch }) => {
         </>
       )}
       <div className="w-full my-10">
-        <div className="flex w-full relative  my-4 ">
-          {preview ? (
-            <div className="relative rounded-2xl overflow-hiddens">
-              <Image
-                width={300}
-                height={200}
-                src={preview}
-                className="rounded-xl  w-full h-full"
-                alt=""
-              />
-              <button
-                onClick={() => setPreview(undefined)}
-                className="absolute bg-gray-300 text-gray-900 rounded-full w-6 h-6 top-4 left-4"
-              >
-                ✕
-              </button>
+        <div className="w-full  mx-auto">
+          <label htmlFor="" className="text-xl my-2 block">
+            Images <span className="text-sm text-zinc-800">(Max 3)</span>
+          </label>
+
+          <div className="relative ">
+            <div className="flex gap-2 flex-wrap">
+              {selectedFiles.length < 3 && (
+                <div className="relative flex flex-col justify-center items-center border border-gray-400 w-44 text-center rounded-md py-4">
+                  <AiOutlineCloudUpload className="text-4xl" />
+                  <input
+                    required
+                    type="file"
+                    onChange={onSelectFile}
+                    className="w-full h-full opacity-0 top-0 left-0 bg-red-500 absolute"
+                  />
+                  <p>Upload Photos</p>
+                </div>
+              )}
+           
+              {
+                state.images.length >0 ? <>
+                  {state.images?.map((preview, index) => (
+                   
+                  
+                <div className="relative mx-2 my-2" key={index}>
+                      <img src={ preview   } className="rounded w-52" alt="" />
+                  <p
+                    onClick={() => handlePreviewRemove(index)}
+                    className="absolute cursor-pointer bg-gray-100 text-gray-900 rounded-full w-6 h-6 top-2 right-2"
+                  >
+                    ✕
+                  </p>
+                </div>
+              ))}
+                </> :
+                  <>
+                        {previews?.map((preview, index) => (
+                <div className="relative mx-2 my-2" key={index}>
+                  <img src={preview} className="rounded w-52" alt="" />
+                  <p
+                    onClick={() => handlePreviewRemove(index)}
+                    className="absolute cursor-pointer bg-gray-100 text-gray-900 rounded-full w-6 h-6 top-2 right-2"
+                  >
+                    ✕
+                  </p>
+                </div>
+              ))}
+                  </>
+              }
+          
             </div>
-          ) : (
-            <>
-              <div className="relative py-10 w-full flex flex-col justify-center items-center border-2 p-4 border-gray-500">
-                <AiOutlineCloudUpload className="text-9xl text-center text-zinc-700" />
-                <input
-                  type="file"
-                  onChange={onSelectFile}
-                  className="w-full h-full absolute top-0 left-0 opacity-0"
-                />
-                <p className="text-xl font-semibold">
-                  Upload an Image{" "}
-                  <span className="text-xs">(Maximum Size 1 mb)</span>
-                </p>
-              </div>
-            </>
+          </div>
+        </div>
+
+        <div className="flex gap-x-5 justify-end  my-14">
+          <div onClick={() => setState(state - 1)}>
+            <OutlineBtn title={"Prev"} />
+          </div>{" "}
+          {selectedFiles.length >0 && (
+            <div onClick={handleUpload}>
+              <MainButton title={"Next"} />
+            </div>
           )}
         </div>
-      </div>
-
-      <div className="flex gap-x-5 justify-end  my-14">
-        <div onClick={() => setState(state - 1)}>
-          <OutlineBtn title={"Prev"} />
-        </div>{" "}
-        {selectedFile && (
-          <div onClick={handleUpload}>
-            <MainButton title={"Next"} />
-          </div>
-        )}
       </div>
     </div>
   );
