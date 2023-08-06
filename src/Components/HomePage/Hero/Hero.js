@@ -2,14 +2,12 @@ import Image from "next/image";
 import bg from "../../../Assets/Home/gym-friday-hero-bg.png";
 import bgMobile from "../../../Assets/Home/gym-friday-hero-bg.png";
 import { AiOutlineArrowRight } from "react-icons/ai";
+
 const Hero = () => {
   return (
-    <div className="relative">
-      <div className="h-[250px] md:h-[700px] md:mb-0  overflow-hidden">
-        <Image src={bg} className=" w-full md:block hidden " alt="" />
-        <Image src={bgMobile} className=" w-full md:hidden block  scale-150" alt="" />
-      </div>
-      <div className="absolute top-4 md:top-1/2 transform md:-translate-y-1/2 p-3 md:p-20">
+    <div  className="relative bg-cover bg-center " style={{ backgroundImage: `url(${bg})` }}>
+     <Image src={bg} alt="Background" layout="fill" objectFit="cover" />
+      <div className="relative z-40 p-3 md:p-20">
         <h1 className="text-[24px] md:text-[108px] md:leading-[110px] text-white font-medium">
           Make Every <br />
           Friday a GymFriday!
